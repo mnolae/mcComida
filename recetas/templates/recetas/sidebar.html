@@ -1,9 +1,11 @@
-<ul class="list-group">
-    <li class="list-group-item"><a href="{% url 'elementos' url='alimentos' %}">Alimentos</a></li>
-    <li class="list-group-item"><a href="{% url 'elementos' url='sabores' %}">Sabores</a></li>
-    <li class="list-group-item"><a href="{% url 'elementos' url='texturas' %}">Texturas</a></li>
-    <li class="list-group-item"><a href="{% url 'elementos' url='tecnicas' %}">Técnicas</a></li>
-    <li class="list-group-item"><a href="{% url 'elementos' url='tipos-corte' %}">Tipos de Corte</a></li>
-    <li class="list-group-item"><a href="{% url 'elementos' url='tipos-ingrediente' %}">Tipos de Ingrediente</a></li>
-    <li class="list-group-item"><a href="{% url 'elementos' url='categorias-ingrediente' %}">Categoría de Ingrediente</a></li>
-</ul>
+<div class="list-group">
+    <button type="button" class="list-group-item list-group-item-secondary">Elementos Base</button>
+    <a class="list-group-item list-group-item-action" href="{% url 'elementos' url='alimentos' %}">Alimentos</a></li>
+    <a class="list-group-item list-group-item-action" href="{% url 'elementos' url='sabores' %}">Sabores</a></li>
+    <a class="list-group-item list-group-item-action" href="{% url 'elementos' url='texturas' %}">Texturas</a></li>
+    <a class="list-group-item list-group-item-action" href="{% url 'elementos' url='tecnicas' %}">Técnicas</a></li>
+    <a class="list-group-item list-group-item-action" href="{% url 'elementos' url='tipos-corte' %}">Tipos de Corte</a></li>
+    <a class="list-group-item list-group-item-action" href="{% url 'elementos' url='tipos-ingrediente' %}">Tipos de Ingrediente</a></li>
+    <a class="list-group-item list-group-item-action" href="{% url 'elementos' url='categorias-ingrediente' %}">Categoría de Ingrediente</a></li>
+</div>
+
