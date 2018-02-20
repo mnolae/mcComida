@@ -1,4 +1,4 @@
-from django.forms import modelform_factory
+from django.forms import modelform_factory, TextInput, Select
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -36,11 +36,9 @@ def elemento_nuevo(request, url):
     e = entidad(url)
 
     if request.method == 'POST':
-        #form = eval(e[2])(request.POST)
-        form = modelform_factory(
-            eval(e[1]), 
-            fields = '__all__', 
-            labels = {'tnombre': 'Nombre', 'csabor': 'Sabor', 'ctextura': 'Textura'},)
+        modelform = modelform_factory(eval(e[1]), fields = '__all__')
+
+        form = modelform(request.POST)
 
         if form.is_valid():
             form.save()
@@ -48,7 +46,18 @@ def elemento_nuevo(request, url):
             return HttpResponseRedirect("/e/" + url)
 
     else:
-        form = modelform_factory(eval(e[1]), fields = '__all__', labels = {'tnombre': 'Nombre'},)
+        form = modelform_factory(eval(e[1]),
+                                fields = '__all__',
+                                labels = {
+                                    'tnombre': 'Nombre', 
+                                    'csabor': 'Sabor', 
+                                    'ctextura': 'Textura'
+                                    },
+                                widgets = {
+                                    'tnombre': TextInput(attrs={'class': 'form-control'}),
+                                    'csabor': Select(attrs={'class': 'form-control'}),
+                                    'ctextura': Select(attrs={'class': 'form-control'})
+                                    })
         # form = eval(e[2])(label_suffix="")
             
     return render(request, 'recetas/form_generico.html', {'form': form})
