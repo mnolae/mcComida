@@ -5,19 +5,18 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 
 from .models import Alimento, Sabor, Textura, Tecnica, TiposCorte, TipoIngrediente, CategoriaIngrediente
-from .forms import AlimentoForm, SaborForm, TexturaForm, TecnicaForm, TipoCorteForm, TipoIngredienteForm
 
-## Funciones genéricas
-
+# Function For Generic purpose
 def entidad(e):
     ents = {
-        'alimentos': ['Alimentos', 'Alimento', 'AlimentoForm', 'lista_alimentos.html'],
-        'sabores': ['Sabores', 'Sabor', 'SaborForm', 'lista_generica.html'],
-        'texturas': ['Texturas', 'Textura', 'TexturaForm', 'lista_generica.html'],
-        'tecnicas': ['Técnicas', 'Tecnica', 'TecnicaForm', 'lista_generica.html'],
-        'tipos-corte': ['Tipos de Corte', 'TiposCorte', 'TipoCorteForm', 'lista_generica.html'],
-        'tipos-ingrediente': ['Tipos de Ingrediente', 'TipoIngrediente', 'TipoIngredienteForm', 'lista_generica.html'],
-        'categorias-ingrediente': ['Categorías de Ingrediente', 'CategoriaIngrediente', '', 'lista_generica.html']
+        'alimentos': ['Alimentos', 'Alimento', '', 'lista_alimentos.html'],
+        'sabores': ['Sabores', 'Sabor', '', 'lista_generica.html'],
+        'texturas': ['Texturas', 'Textura', '', 'lista_generica.html'],
+        'tecnicas': ['Técnicas', 'Tecnica', '', 'lista_generica.html'],
+        'tipos-corte': ['Tipos de Corte', 'TiposCorte', '', 'lista_generica.html'],
+        'tipos-ingrediente': ['Tipos de Ingrediente', 'TipoIngrediente', '', 'lista_generica.html'],
+        'categorias-ingrediente': ['Categorías de Ingrediente', 'CategoriaIngrediente', '', 'lista_generica.html'],
+        'ingredientes': ['Ingredientes', 'IngredienteInfo', '', 'lista_generica.html']
     }
 
     return ents.get(e, "null")
@@ -57,8 +56,7 @@ def elemento_nuevo(request, url):
                                     'tnombre': TextInput(attrs={'class': 'form-control'}),
                                     'csabor': Select(attrs={'class': 'form-control'}),
                                     'ctextura': Select(attrs={'class': 'form-control'})
-                                    })
-        # form = eval(e[2])(label_suffix="")
+                                    })(label_suffix="")
             
     return render(request, 'recetas/form_generico.html', {'form': form})
 
@@ -67,7 +65,8 @@ def elemento_edit(request, url, cid):
 
     if request.method == 'POST':
         instance = get_object_or_404(eval(e[1]), cid = cid)
-        form = eval(e[2])(request.POST or None, instance = instance)
+        modelform = modelform_factory(eval(e[1]), fields = '__all__')
+        form = modelform(request.POST or None, instance = instance)
 
         if form.is_valid():
             form.save()
@@ -76,7 +75,20 @@ def elemento_edit(request, url, cid):
 
     else:
         instance = get_object_or_404(eval(e[1]), cid = cid)
-        form = eval(e[2])(request.POST or None, instance=instance, label_suffix="")
+        modelform = modelform_factory(eval(e[1]), 
+                                    fields = '__all__',
+                                    labels = {
+                                        'tnombre': 'Nombre', 
+                                        'csabor': 'Sabor', 
+                                        'ctextura': 'Textura'
+                                    },
+                                    widgets = {
+                                        'tnombre': TextInput(attrs={'class': 'form-control'}),
+                                        'csabor': Select(attrs={'class': 'form-control'}),
+                                        'ctextura': Select(attrs={'class': 'form-control'})
+                                    })
+
+        form = modelform(request.POST or None, instance = instance, label_suffix = "")
 
     return render(request, 'recetas/form_generico.html', {'form': form})
 
