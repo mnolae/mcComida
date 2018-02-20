@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-5.1.dtd">
+<!-- eric project file for project Recetario -->
+<!-- Saved: 2018-02-13, 14:36:23 -->
+<!-- Copyright (C) 2018 ,  -->
+<Project version="5.1">
+  <Language>en_US</Language>
+  <Hash>bfe124e011e780f39524aec7c3ad15f93c177cfa</Hash>
+  <ProgLanguage mixed="1">Python3</ProgLanguage>
+  <ProjectType>Other</ProjectType>
+  <Version>0.1</Version>
+  <Author></Author>
+  <Email></Email>
+  <Eol index="0"/>
+  <Sources>
+    <Source>__init__.py</Source>
+    <Source>comida/__init__.py</Source>
+    <Source>comida/settings.py</Source>
+    <Source>comida/urls.py</Source>
+    <Source>comida/wsgi.py</Source>
+    <Source>manage.py</Source>
+    <Source>recetas/__init__.py</Source>
+    <Source>recetas/admin.py</Source>
+    <Source>recetas/apps.py</Source>
+    <Source>recetas/migrations/0001_initial.py</Source>
+    <Source>recetas/migrations/0002_ingrediente_receta_sabor_tecnica_textura_tipodeacompanamiento_tipodecorte.py</Source>
+    <Source>recetas/migrations/0003_metareceta.py</Source>
+    <Source>recetas/migrations/__init__.py</Source>
+    <Source>recetas/models.py</Source>
+    <Source>recetas/tests.py</Source>
+    <Source>recetas/urls.py</Source>
+    <Source>recetas/views.py</Source>
+  </Sources>
+  <Forms/>
+  <Translations/>
+  <Resources>
+    <Resource>recetas/templates/recetas/ingredientes.html</Resource>
+  </Resources>
+  <Interfaces/>
+  <Others/>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.html" type="RESOURCES"/>
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES"/>
+    <FiletypeAssociation pattern="*.js" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.py" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.py2" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.py3" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.pyw" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.pyw2" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.pyw3" type="SOURCES"/>
+    <FiletypeAssociation pattern="*.rb" type="SOURCES"/>
+  </FiletypeAssociations>
+</Project>

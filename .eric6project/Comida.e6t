@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Tasks SYSTEM "Tasks-6.0.dtd">
+<!-- eric6 tasks file for project Comida -->
+<!-- Saved: 2018-02-13, 14:32:41 -->
+<Tasks version="6.0">
+  <ProjectScanFilter></ProjectScanFilter>
+  <Task priority="1" completed="False" type="2" uid="{496a071c-c99c-44a3-9d0a-c1df765484a4}">
+    <Summary>WARNING: keep the secret key used in production secret!</Summary>
+    <Description></Description>
+    <Created>2018-02-13, 13:18:32</Created>
+    <Resource>
+      <Filename>comida/settings.py</Filename>
+      <Linenumber>22</Linenumber>
+    </Resource>
+  </Task>
+  <Task priority="1" completed="False" type="2" uid="{0a0dee12-5b70-476d-b927-fb9d928fd102}">
+    <Summary>WARNING: don't run with debug turned on in production!</Summary>
+    <Description></Description>
+    <Created>2018-02-13, 13:18:32</Created>
+    <Resource>
+      <Filename>comida/settings.py</Filename>
+      <Linenumber>25</Linenumber>
+    </Resource>
+  </Task>
+</Tasks>
