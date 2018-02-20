@@ -4,7 +4,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
-from .models import Alimento, Sabor, Textura, Tecnica, TiposCorte, TipoIngrediente, CategoriaIngrediente
+from .models import Alimento, Sabor, Textura, Tecnica, \
+                    TiposCorte, TipoIngrediente, CategoriaIngrediente, \
+                    IngredienteInfo
 
 # Function For Generic purpose
 def entidad(e):
@@ -16,7 +18,7 @@ def entidad(e):
         'tipos-corte': ['Tipos de Corte', 'TiposCorte', '', 'lista_generica.html'],
         'tipos-ingrediente': ['Tipos de Ingrediente', 'TipoIngrediente', '', 'lista_generica.html'],
         'categorias-ingrediente': ['Categorías de Ingrediente', 'CategoriaIngrediente', '', 'lista_generica.html'],
-        'ingredientes': ['Ingredientes', 'IngredienteInfo', '', 'lista_generica.html']
+        'ingredientes': ['Ingredientes', 'IngredienteInfo', '', 'lista_ingredientes.html']
     }
 
     return ents.get(e, "null")
@@ -50,12 +52,22 @@ def elemento_nuevo(request, url):
                                 labels = {
                                     'tnombre': 'Nombre', 
                                     'csabor': 'Sabor', 
-                                    'ctextura': 'Textura'
+                                    'ctextura': 'Textura',
+                                    'calimento': 'Alimento',
+                                    'ctecnica': 'Técnica',
+                                    'ctipo': 'Tipo',
+                                    'ccategoria': 'Categoría',
+                                    'ccorte': 'Corte'
                                     },
                                 widgets = {
                                     'tnombre': TextInput(attrs={'class': 'form-control'}),
                                     'csabor': Select(attrs={'class': 'form-control'}),
-                                    'ctextura': Select(attrs={'class': 'form-control'})
+                                    'ctextura': Select(attrs={'class': 'form-control'}),
+                                    'calimento': Select(attrs={'class': 'form-control'}),
+                                    'ctecnica': Select(attrs={'class': 'form-control'}),
+                                    'ctipo': Select(attrs={'class': 'form-control'}),
+                                    'ccategoria': Select(attrs={'class': 'form-control'}),
+                                    'ccorte': Select(attrs={'class': 'form-control'}),
                                     })(label_suffix="")
             
     return render(request, 'recetas/form_generico.html', {'form': form})
@@ -78,14 +90,24 @@ def elemento_edit(request, url, cid):
         modelform = modelform_factory(eval(e[1]), 
                                     fields = '__all__',
                                     labels = {
-                                        'tnombre': 'Nombre', 
-                                        'csabor': 'Sabor', 
-                                        'ctextura': 'Textura'
+                                    'tnombre': 'Nombre', 
+                                    'csabor': 'Sabor', 
+                                    'ctextura': 'Textura',
+                                    'calimento': 'Alimento',
+                                    'ctecnica': 'Técnica',
+                                    'ctipo': 'Tipo',
+                                    'ccategoria': 'Categoría',
+                                    'ccorte': 'Corte'
                                     },
-                                    widgets = {
-                                        'tnombre': TextInput(attrs={'class': 'form-control'}),
-                                        'csabor': Select(attrs={'class': 'form-control'}),
-                                        'ctextura': Select(attrs={'class': 'form-control'})
+                                widgets = {
+                                    'tnombre': TextInput(attrs={'class': 'form-control'}),
+                                    'csabor': Select(attrs={'class': 'form-control'}),
+                                    'ctextura': Select(attrs={'class': 'form-control'}),
+                                    'calimento': Select(attrs={'class': 'form-control'}),
+                                    'ctecnica': Select(attrs={'class': 'form-control'}),
+                                    'ctipo': Select(attrs={'class': 'form-control'}),
+                                    'ccategoria': Select(attrs={'class': 'form-control'}),
+                                    'ccorte': Select(attrs={'class': 'form-control'}),
                                     })
 
         form = modelform(request.POST or None, instance = instance, label_suffix = "")

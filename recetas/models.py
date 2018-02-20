@@ -15,6 +15,9 @@ class CategoriaIngrediente(models.Model):
         managed = False
         db_table = 'CATEGORIA_INGREDIENTE'
 
+    def __str__(self):
+        return self.tnombre
+
 
 class Alimento(models.Model):
     cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
@@ -53,6 +56,9 @@ class IngredienteInfo(models.Model):
     class Meta:
         managed = False
         db_table = 'INGREDIENTE_INFO'
+
+    def __str__(self):
+        return self.calimento
 
 
 class RecetasCompuestas(models.Model):
@@ -114,6 +120,9 @@ class Tecnica(models.Model):
         verbose_name = 'técnica'
         verbose_name_plural = 'técnicas'
         ordering = ('tnombre', )
+
+    def __str__(self):
+        return self.tnombre
 
 
 class Textura(models.Model):

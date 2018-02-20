@@ -1,0 +1,64 @@
+{% extends 'recetas/base.html'%}
+
+{% block title%}Ingredientes{% endblock %}
+
+{% block titulo%}
+    Listado de Ingredientes
+    <button class="btn btn-primary btn-sm float-right mb-2" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_nuevo' url=elemento_entidad %}', 'Nuevo Elemento')" class="top-menu">Añadir {{ entidad }}</button>
+{% endblock %}
+
+{% block container %}
+    {% if lista %}
+        <table class="table table-sm table-hover table-responsive-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Ingrediente</th>
+                    <th scope="col">Técnica</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Corte</th>
+                    <th scope="col" class="col-2"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ingrediente in lista %}
+                <tr>
+                    <td>{{ ingrediente.calimento }}</td>
+                    <td>{{ ingrediente.ctecnica }}</td>
+                    <td>{{ ingrediente.ctipo }}</td>
+                    <td>{{ ingrediente.ccategoria }}</td>
+                    <td>{{ ingrediente.ccorte }}</td>
+                    <td class="text-right">
+                        <button role="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_edit' url=elemento_entidad cid=ingrediente.cid %}', 'Editar')">Editar</button>
+                        <button role="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Modal"  onclick="urlModal('{% url 'elemento_del' url=elemento_entidad cid=ingrediente.cid %}','Eliminar {{ e.tnombre }}')">Borrar</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <ul class="pagination">
+        {% if lista.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&Lang;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ lista.previous_page_number }}">&lang;</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link" href="">&Lang;</a></li>
+            <li class="page-item disabled"><a class="page-link" href="">&lang;</a></li>
+        {% endif %}
+
+        <li class="page-item"><a class="page-link">Página {{ lista.number}} de {{ lista.paginator.num_pages }}</a></li>
+
+        {% if lista.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ lista.next_page_number }}">&rang;</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ lista.paginator.num_pages }}">&Rang;</a></li>
+        {% else %}
+            <li class="page-item disabled"><a class="page-link" href="">&rang;</a></li>
+            <li class="page-item disabled"><a class="page-link" href="">&Rang;</a></li>
+        {% endif %}
+        </ul>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            No hay ingredientes disponibles.
+        </div>
+    {% endif %}
+{% endblock %}
