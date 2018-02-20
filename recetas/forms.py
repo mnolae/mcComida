@@ -1,10 +1,10 @@
 from django.forms import ModelForm, TextInput, Select
 
-from .models import Ingrediente, Sabor, Textura, Tecnica, TiposCorte, TipoIngrediente
+from .models import Alimento, Sabor, Textura, Tecnica, TiposCorte, TipoIngrediente
 
-class IngredienteForm(ModelForm):
+class AlimentoForm(ModelForm):
     class Meta:
-        model = Ingrediente
+        model = Alimento
         fields = '__all__'
         labels = {
             'tnombre': 'Nombre',

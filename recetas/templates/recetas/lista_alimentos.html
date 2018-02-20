@@ -1,9 +1,9 @@
 {% extends 'recetas/base.html'%}
 
-{% block title%}Ingredientes{% endblock %}
+{% block title%}Alimentos{% endblock %}
 
 {% block titulo%}
-    Listado de Ingredientes
+    Listado de Alimentos
     <button class="btn btn-primary btn-sm float-right mb-2" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_nuevo' url=elemento_entidad %}', 'Nuevo Elemento')" class="top-menu">Añadir {{ entidad }}</button>
 {% endblock %}
 
@@ -12,21 +12,21 @@
         <table class="table table-sm table-hover table-responsive-sm">
             <thead>
                 <tr>
-                    <th scope="col">Ingrediente</th>
+                    <th scope="col">Alimentos</th>
                     <th scope="col">Sabor</th>
                     <th scope="col">Textura</th>
                     <th scope="col" class="col-2"></th>
                 </tr>
             </thead>
             <tbody>
-            {% for ingrediente in lista %}
+            {% for alimento in lista %}
                 <tr>
-                    <td>{{ ingrediente.tnombre }}</td>
-                    <td>{{ ingrediente.csabor|default_if_none:"" }}</td>
-                    <td>{{ ingrediente.ctextura|default_if_none:"" }}</td>
+                    <td>{{ alimento.tnombre }}</td>
+                    <td>{{ alimento.csabor|default_if_none:"" }}</td>
+                    <td>{{ alimento.ctextura|default_if_none:"" }}</td>
                     <td class="text-right">
-                        <button role="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_edit' url=elemento_entidad cid=ingrediente.cid %}', 'Editar')">Editar</button>
-                        <button role="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Modal"  onclick="urlModal('{% url 'elemento_del' url=elemento_entidad cid=ingrediente.cid %}','Eliminar {{ e.tnombre }}')">Borrar</button>
+                        <button role="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_edit' url=elemento_entidad cid=alimento.cid %}', 'Editar')">Editar</button>
+                        <button role="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Modal"  onclick="urlModal('{% url 'elemento_del' url=elemento_entidad cid=alimento.cid %}','Eliminar {{ e.tnombre }}')">Borrar</button>
                     </td>
                 </tr>
             {% endfor %}
@@ -54,7 +54,7 @@
         </ul>
     {% else %}
         <div class="alert alert-warning" role="alert">
-            No hay elementos disponibles.
+            No hay alimentos disponibles.
         </div>
     {% endif %}
 {% endblock %}

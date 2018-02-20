@@ -4,14 +4,14 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
-from .models import Ingrediente, Sabor, Textura, Tecnica, TiposCorte, TipoIngrediente, CategoriaIngrediente
-from .forms import IngredienteForm, SaborForm, TexturaForm, TecnicaForm, TipoCorteForm, TipoIngredienteForm
+from .models import Alimento, Sabor, Textura, Tecnica, TiposCorte, TipoIngrediente, CategoriaIngrediente
+from .forms import AlimentoForm, SaborForm, TexturaForm, TecnicaForm, TipoCorteForm, TipoIngredienteForm
 
 ## Funciones genéricas
 
 def entidad(e):
     ents = {
-        'ingredientes': ['Ingredientes', 'Ingrediente', 'IngredienteForm', 'lista_ingredientes.html'],
+        'ingredientes': ['Alimentos', 'Alimento', 'AlimentoForm', 'lista_alimentos.html'],
         'sabores': ['Sabores', 'Sabor', 'SaborForm', 'lista_generica.html'],
         'texturas': ['Texturas', 'Textura', 'TexturaForm', 'lista_generica.html'],
         'tecnicas': ['Técnicas', 'Tecnica', 'TecnicaForm', 'lista_generica.html'],

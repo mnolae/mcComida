@@ -16,7 +16,7 @@ class CategoriaIngrediente(models.Model):
         db_table = 'CATEGORIA_INGREDIENTE'
 
 
-class Ingrediente(models.Model):
+class Alimento(models.Model):
     cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
     tnombre = models.CharField(db_column='tNombre', max_length=50)  # Field name made lowercase.
     csabor = models.ForeignKey('Sabor', models.DO_NOTHING, db_column='cSabor', blank=True, null=True)  # Field name made lowercase.
@@ -24,7 +24,7 @@ class Ingrediente(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'INGREDIENTES'
+        db_table = 'ALIMENTOS'
         ordering = ('tnombre', )
         
     def __str__(self):
@@ -44,7 +44,7 @@ class IngredientesRecetas(models.Model):
 
 class IngredienteInfo(models.Model):
     cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
-    cingrediente = models.ForeignKey(Ingrediente, models.DO_NOTHING, db_column='cIngrediente')  # Field name made lowercase.
+    calimento = models.ForeignKey(Alimento, models.DO_NOTHING, db_column='cAlimento')  # Field name made lowercase.
     ctecnica = models.ForeignKey('Tecnica', models.DO_NOTHING, db_column='cTecnica')  # Field name made lowercase.
     ctipo = models.ForeignKey('TipoIngrediente', models.DO_NOTHING, db_column='cTipo')  # Field name made lowercase.
     ccategoria = models.ForeignKey(CategoriaIngrediente, models.DO_NOTHING, db_column='cCategoria')  # Field name made lowercase.
