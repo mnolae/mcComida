@@ -23,6 +23,9 @@ def entidad(e):
 
     return ents.get(e, "null")
 
+def index(request):
+    return render(request, 'recetas/index.html')
+
 def elementos(request, url):
     e = entidad(url)
     lista = eval(e[1]).objects.all()
