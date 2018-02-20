@@ -4,8 +4,8 @@ from . import views
 
 urlpatterns = [
 
-    # Index    
     path('', views.index, name='index'),
+    path('login', views.login, name='login'),
 
     # Lista de elementos
     path('e/<str:url>', views.elementos, name='elementos'),
