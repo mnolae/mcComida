@@ -11,7 +11,7 @@ from .forms import AlimentoForm, SaborForm, TexturaForm, TecnicaForm, TipoCorteF
 
 def entidad(e):
     ents = {
-        'ingredientes': ['Alimentos', 'Alimento', 'AlimentoForm', 'lista_alimentos.html'],
+        'alimentos': ['Alimentos', 'Alimento', 'AlimentoForm', 'lista_alimentos.html'],
         'sabores': ['Sabores', 'Sabor', 'SaborForm', 'lista_generica.html'],
         'texturas': ['Texturas', 'Textura', 'TexturaForm', 'lista_generica.html'],
         'tecnicas': ['Técnicas', 'Tecnica', 'TecnicaForm', 'lista_generica.html'],
