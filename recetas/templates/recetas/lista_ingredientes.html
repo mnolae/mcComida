@@ -9,7 +9,7 @@
 
 {% block container %}
     {% if lista %}
-        <table class="table table-sm table-hover table-responsive-sm">
+        <table class="table table-sm table-hover table-responsive-sm text-capitalize">
             <thead>
                 <tr>
                     <th scope="col">Ingrediente</th>
@@ -23,7 +23,7 @@
             <tbody>
             {% for ingrediente in lista %}
                 <tr>
-                    <td>{{ ingrediente.calimento }}</td>
+                    <td class="">{{ ingrediente.calimento }}</td>
                     <td>{{ ingrediente.ctecnica }}</td>
                     <td>{{ ingrediente.ctipo }}</td>
                     <td>{{ ingrediente.ccategoria }}</td>
