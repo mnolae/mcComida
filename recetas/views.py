@@ -27,19 +27,6 @@ def entidad(e):
 def index(request):
     return render(request, 'recetas/index.html')
 
-def login(request):
-    if request.method == 'POST':
-        u = request.POST['user']
-        p = request.POST['pass']
-        user = authenticate(request, username=u, password=p)
-        if user is not None:
-            login(request, user)
-            return HttpResponseRedirect("/")
-        else:
-            messages.add_message(request, messages.ERROR, "Datos incorrectos.")
-
-    return render(request, 'recetas/login.html')
-
 def elementos(request, url):
     e = entidad(url)
     lista = eval(e[1]).objects.all()
