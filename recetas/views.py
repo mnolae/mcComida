@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 
 from .models import Alimento, Sabor, Textura, Tecnica, \
                     TiposCorte, TipoIngrediente, CategoriaIngrediente, \
@@ -27,6 +28,16 @@ def index(request):
     return render(request, 'recetas/index.html')
 
 def login(request):
+    if request.method == 'POST':
+        u = request.POST['user']
+        p = request.POST['pass']
+        user = authenticate(request, username=u, password=p)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect("/")
+        else:
+            messages.add_message(request, messages.ERROR, "Datos incorrectos.")
+
     return render(request, 'recetas/login.html')
 
 def elementos(request, url):
