@@ -1,4 +1,5 @@
 <div class="list-group">
+    {% if user.is_authenticated %}
     <button type="button" class="list-group-item list-group-item-secondary">Elementos Base</button>
     <a class="list-group-item list-group-item-action{% if entidad == 'Alimentos' %}} active{% endif %}" href="{% url 'elementos' url='alimentos' %}">Alimentos</a></li>
     <a class="list-group-item list-group-item-action{% if entidad == 'Sabores' %}} active{% endif %}" href="{% url 'elementos' url='sabores' %}">Sabores</a></li>
@@ -7,6 +8,7 @@
     <a class="list-group-item list-group-item-action{% if entidad == 'Tipos de Ingrediente' %}} active{% endif %}" href="{% url 'elementos' url='tipos-ingrediente' %}">Tipos de Ingrediente</a></li>
     <a class="list-group-item list-group-item-action{% if entidad == 'Categorías de Ingrediente' %}} active{% endif %}" href="{% url 'elementos' url='categorias-ingrediente' %}">Categoría de Ingrediente</a></li>
     <a class="list-group-item list-group-item-action{% if entidad == 'Tipos de Corte' %}} active{% endif %}" href="{% url 'elementos' url='tipos-corte' %}">Tipos de Corte</a></li>
+    {% endif %}
     <button type="button" class="list-group-item list-group-item-secondary">Elementos lvl 1</button>
     <a class="list-group-item list-group-item-action{% if entidad == 'Ingredientes' %}} active{% endif %}" href="{% url 'elementos' url='ingredientes' %}">Ingredientes</a></li>    
 </div>

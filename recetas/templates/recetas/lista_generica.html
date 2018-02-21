@@ -4,7 +4,9 @@
 
 {% block titulo%}
     Listado de {{ entidad }}
+    {% if user.is_authenticated %}
     <button class="btn btn-primary btn-sm float-right mb-2" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_nuevo' url=elemento_entidad %}', 'Nuevo Elemento')" class="top-menu">Añadir {{ entidad }}</button>
+    {% endif %}
 {% endblock %}
 
 {% block container %}
@@ -21,8 +23,10 @@
                 <tr>
                     <td>{{ e.tnombre }}</td>
                     <td class="text-right">
+                    {% if user.is_authenticated %}
                         <button role="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_edit' url=elemento_entidad cid=e.cid %}', 'Editar')">Editar</button>
                         <button role="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Modal"  onclick="urlModal('{% url 'elemento_del' url=elemento_entidad cid=e.cid %}','Eliminar {{ e.tnombre }}')">Borrar</button>
+                    {% endif %}
                     </td>
                 </tr>
             {% endfor %}

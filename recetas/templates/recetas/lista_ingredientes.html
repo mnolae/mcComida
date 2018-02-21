@@ -4,7 +4,9 @@
 
 {% block titulo%}
     Listado de Ingredientes
+    {% if user.is_authenticated %}
     <button class="btn btn-primary btn-sm float-right mb-2" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_nuevo' url=elemento_entidad %}', 'Nuevo Elemento')" class="top-menu">Añadir {{ entidad }}</button>
+    {% endif %}
 {% endblock %}
 
 {% block container %}
@@ -29,8 +31,10 @@
                     <td>{{ ingrediente.ccategoria }}</td>
                     <td>{{ ingrediente.ccorte }}</td>
                     <td class="text-right">
+                    {% if user.is_authenticated %}
                         <button role="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_edit' url=elemento_entidad cid=ingrediente.cid %}', 'Editar')">Editar</button>
                         <button role="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Modal"  onclick="urlModal('{% url 'elemento_del' url=elemento_entidad cid=ingrediente.cid %}','Eliminar {{ e.tnombre }}')">Borrar</button>
+                    {% endif %}
                     </td>
                 </tr>
             {% endfor %}
