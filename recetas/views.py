@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 from .models import Alimento, Sabor, Textura, Tecnica, \
                     TiposCorte, TipoIngrediente, CategoriaIngrediente, \
@@ -37,6 +38,7 @@ def elementos(request, url):
     context = {'entidad': e[0], 'elemento_entidad': url, 'lista': paginator.get_page(page)}
     return render(request, 'recetas/' + e[3], context)
 
+@login_required
 def elemento_nuevo(request, url):
     e = entidad(url)
 
@@ -76,6 +78,7 @@ def elemento_nuevo(request, url):
             
     return render(request, 'recetas/form_generico.html', {'form': form})
 
+@login_required
 def elemento_edit(request, url, cid):
     e = entidad(url)
 
@@ -118,6 +121,7 @@ def elemento_edit(request, url, cid):
 
     return render(request, 'recetas/form_generico.html', {'form': form})
 
+@login_required
 def elemento_del(request, url, cid):
     e = entidad(url)
     elemento = get_object_or_404(eval(e[1]), cid = cid)
