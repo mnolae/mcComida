@@ -166,18 +166,18 @@ $(function() {
 	    rules: {
 	        username: {
 	            required: true,
-	            email: true
+	            /* email: true */
 	        },
 	        password: "required",
-	        agree: "required"
+	        /* agree: "required" */
 	    },
 	    messages: {
 	        username: {
-	            required: "Please enter username",
-	            email: "Please enter a valid email address"
+	            required: "Necesario tu nombre de usuario/a",
+	            /* email: "Please enter a valid email address" */
 	        },
-	        password:  "Please enter password",
-	        agree: "Please accept our policy"
+	        password:  "Necesaria la contraseña",
+	        /* agree: "Please accept our policy" */
 	    },
 	    invalidHandler: function() {
 			animate({
