@@ -22,8 +22,7 @@
                     <div class="header-block header-block-search w-100">
                         <form role="search" class=" w-100">
                             <div class="input-container">
-                                <i class="pl-2 fa fa-search"></i>
-                                <input type="search" class="bg-light mw-100 w-75" placeholder="Search">
+                                <input type="search" class="bg-light mw-100 w-50 pl-1" placeholder="Búsqueda">
                                 <button class="btn btn-success p-2">Buscar</button>
                                 <div class="underline"></div>
                             </div>
@@ -31,23 +30,26 @@
                     </div>
                     <div class="header-block header-block-nav">
                         <ul class="nav-profile">
+                            {% if user.is_authenticated %}
                             <li class="profile dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <div class="img" style="background-image: url('https://avatars3.githubusercontent.com/u/3959008?v=3&s=40')"> </div>
-                                    <span class="name"> John Doe </span>
+                                    <span class="name">{{ user.username }}</span>
                                 </a>
                                 <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
                                     <a class="dropdown-item" href="#">
-                                        <i class="fa fa-user icon"></i> Profile </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fa fa-bell icon"></i> Notifications </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fa fa-gear icon"></i> Settings </a>
+                                        <i class="fa fa-user icon"></i> algo </a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="login.html">
-                                        <i class="fa fa-power-off icon"></i> Logout </a>
+                                        <i class="fa fa-sign-out icon"></i> Salir </a>
                                 </div>
                             </li>
+                            {% else %}
+                            <li class="notifications new">
+                                <a href="/cuenta/login">
+                                    <i class="fa fa-lock"></i>
+                                </a>
+                            </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </header>
