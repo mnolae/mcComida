@@ -5,7 +5,7 @@
 {% block titulo%}
     Listado de Alimentos
     {% if user.is_authenticated %}
-    <button class="btn btn-primary btn-sm float-right mb-2" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_nuevo' url=elemento_entidad %}', 'Nuevo Elemento')" class="top-menu">Añadir {{ entidad }}</button>
+    <button class="btn btn-primary btn-sm float-right mb-2" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_nuevo' url=elemento_entidad %}', 'Nuevo Elemento')" class="top-menu"><i class="fa fa-plus-square"></i> Añadir {{ entidad }}</button>
     {% endif %}
 {% endblock %}
 
@@ -28,8 +28,8 @@
                     <td>{{ alimento.ctextura|default_if_none:"" }}</td>
                     <td class="text-right">
                     {% if user.is_authenticated %}
-                        <button role="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_edit' url=elemento_entidad cid=alimento.cid %}', 'Editar')">Editar</button>
-                        <button role="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Modal"  onclick="urlModal('{% url 'elemento_del' url=elemento_entidad cid=alimento.cid %}','Eliminar {{ e.tnombre }}')">Borrar</button>
+                        <button role="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_edit' url=elemento_entidad cid=alimento.cid %}', 'Editar')"><i class="fa fa-pencil-square"></i></button>
+                        <button role="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Modal"  onclick="urlModal('{% url 'elemento_del' url=elemento_entidad cid=alimento.cid %}','Eliminar {{ e.tnombre }}')"><i class="fa fa-minus-square"></i></button>
                     {% endif %}
                     </td>
                 </tr>
