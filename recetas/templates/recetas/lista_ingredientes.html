@@ -5,7 +5,7 @@
 {% block titulo%}
     Listado de Ingredientes
     {% if user.is_authenticated %}
-    <button class="btn btn-primary btn-sm float-right mb-2" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_nuevo' url=elemento_entidad %}', 'Nuevo Elemento')" class="top-menu"><i class="fa fa-plus-square"></i>Añadir {{ entidad }}</button>
+    <button class="btn btn-primary btn-sm float-right mb-2" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_nuevo' url=elemento_entidad %}', 'Nuevo Elemento')" class="top-menu"><i class="fa fa-plus-square"></i> Añadir {{ entidad }}</button>
     {% endif %}
 {% endblock %}
 

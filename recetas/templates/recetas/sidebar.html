@@ -3,7 +3,7 @@
         <a href="/">
             <i class="fa fa-home"></i>Inicio</a>
     </li>
-    <li>
+    <li class="{% if lvl == 0 %}active open{% endif %}">
         <a href="">
             <i class="fa fa-th-large"></i>Elementos Base
             <i class="fa arrow"></i>
@@ -14,17 +14,17 @@
             <li class="{% if request.path == '/e/texturas' %}active{% endif %}"><a href="{% url 'elementos' url='texturas' %}">Texturas</a></li>
             <li class="{% if request.path == '/e/tecnicas' %}active{% endif %}"><a href="{% url 'elementos' url='tecnicas' %}">Técnicas</a></li>
             <li class="{% if request.path == '/e/tipos-ingrediente' %}active{% endif %}"><a href="{% url 'elementos' url='tipos-ingrediente' %}">Tipos de Ingrediente</a></li>
-            <li class="{% if request.path == '/e/categorias-ingrediente' %}active{% endif %}"><a href="{% url 'elementos' url='categorias-ingrediente' %}">Categoría de Ingrediente</a></li>
+            <li class="{% if request.path == '/e/categorias-ingrediente' %}active{% endif %}"><a href="{% url 'elementos' url='categorias-ingrediente' %}">Categorías de Ingrediente</a></li>
             <li class="{% if request.path == '/e/tipos-corte' %}active{% endif %}"><a href="{% url 'elementos' url='tipos-corte' %}">Tipos de Corte</a></li>
         </ul>
     </li>
-    <li>
+    <li class="{% if lvl == 1 %}active open{% endif %}"">
         <a href="">
             <i class="fa fa-area-chart"></i>Elementos lvl 1
             <i class="fa arrow"></i>
         </a>
         <ul class="sidebar-nav">
-            <li><a href="{% url 'elementos' url='ingredientes' %}">Ingredientes</a></li>
+            <li class="{% if request.path == '/e/ingredientes' %}active{% endif %}"><a href="{% url 'elementos' url='ingredientes' %}">Ingredientes</a></li>
         </ul>
     </li>
 </ul>

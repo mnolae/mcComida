@@ -35,7 +35,12 @@ def elementos(request, url):
     paginator = Paginator(lista, 10)
     page = request.GET.get('page')
 
-    context = {'entidad': e[0], 'elemento_entidad': url, 'lista': paginator.get_page(page)}
+    if (url == "ingredientes"):
+        lvl = 1
+    else:
+        lvl = 0
+
+    context = {'entidad': e[0], 'elemento_entidad': url, 'lista': paginator.get_page(page), 'lvl': lvl}
     return render(request, 'recetas/' + e[3], context)
 
 @login_required
