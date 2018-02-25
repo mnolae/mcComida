@@ -39,7 +39,7 @@
                                     <a class="dropdown-item" href="#">
                                         <i class="fa fa-user icon"></i> algo </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="login.html">
+                                    <a class="dropdown-item" href="/cuenta/logout">
                                         <i class="fa fa-sign-out icon"></i> Salir </a>
                                 </div>
                             </li>
@@ -71,8 +71,8 @@
                     </div>
                     <footer class="sidebar-footer">
                         <ul class="sidebar-menu metismenu" id="customize-menu">
-                            <li>
-                                <a href=""><i class="fa fa-leaf"></i> sidebar-footer</a>
+                            <li class="text-center">
+                                <a><i class="fa fa-fire"></i> <span class=""> v.0.1</a>
                             </li>
                         </ul>
                     </footer>
@@ -91,15 +91,11 @@
                     </section>
                 </article>
                 <footer class="footer">
-                    <div class="footer-block buttons">
-                        <span class="">v 0.1</span>
-                    </div>
+                    <div class="footer-block buttons"></div>
                     <div class="footer-block author">
                         <ul>
-                            <li><a href="/">Título</a></li>
-                            <li>
-                                <a href="/">Derechos</a>
-                            </li>
+                            <li><a>Título</a></li>
+                            <li><a>Derechos</a></li>
                         </ul>
                     </div>
                 </footer>
@@ -107,8 +103,8 @@
                 <!-- Modal -->
                 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content rounded-top">
-                            <div class="modal-header">
+                        <div class="modal-content">
+                            <div id="ModalHeader" class="modal-header rounded-0">
                                 <h5 class="modal-title" id="ModalLabel">título modal</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -137,6 +133,9 @@
         <script src="{% static '/recetas/js/vendor.js' %}"></script>
         <script src="{% static '/recetas/js/app.js' %}"></script>
         <script src="{% static '/recetas/js/lib.js' %}"></script>
+        <script>
+            $('[data-toggle="tooltip"]').tooltip();
+        </script>
         {% block js %}{% endblock %}
     </body>
 </html>

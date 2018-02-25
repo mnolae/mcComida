@@ -13,14 +13,14 @@ from .models import Alimento, Sabor, Textura, Tecnica, \
 # Function For Generic purpose
 def entidad(e):
     ents = {
-        'alimentos': ['Alimentos', 'Alimento', '', 'lista_alimentos.html'],
-        'sabores': ['Sabores', 'Sabor', '', 'lista_generica.html'],
-        'texturas': ['Texturas', 'Textura', '', 'lista_generica.html'],
-        'tecnicas': ['Técnicas', 'Tecnica', '', 'lista_generica.html'],
-        'tipos-corte': ['Tipos de Corte', 'TiposCorte', '', 'lista_generica.html'],
-        'tipos-ingrediente': ['Tipos de Ingrediente', 'TipoIngrediente', '', 'lista_generica.html'],
-        'categorias-ingrediente': ['Categorías de Ingrediente', 'CategoriaIngrediente', '', 'lista_generica.html'],
-        'ingredientes': ['Ingredientes', 'IngredienteInfo', '', 'lista_ingredientes.html']
+        'alimentos': ['Alimentos', 'Alimento', '', 'lista_alimentos.html', 0],
+        'sabores': ['Sabores', 'Sabor', '', 'lista_generica.html', 0],
+        'texturas': ['Texturas', 'Textura', '', 'lista_generica.html', 0],
+        'tecnicas': ['Técnicas', 'Tecnica', '', 'lista_generica.html', 0],
+        'tipos-corte': ['Tipos de Corte', 'TiposCorte', '', 'lista_generica.html', 0],
+        'tipos-ingrediente': ['Tipos de Ingrediente', 'TipoIngrediente', '', 'lista_generica.html', 0],
+        'categorias-ingrediente': ['Categorías de Ingrediente', 'CategoriaIngrediente', '', 'lista_generica.html', 0],
+        'ingredientes': ['Ingredientes', 'IngredienteInfo', '', 'lista_ingredientes.html', 1]
     }
 
     return ents.get(e, "null")
@@ -35,12 +35,7 @@ def elementos(request, url):
     paginator = Paginator(lista, 10)
     page = request.GET.get('page')
 
-    if (url == "ingredientes"):
-        lvl = 1
-    else:
-        lvl = 0
-
-    context = {'entidad': e[0], 'elemento_entidad': url, 'lista': paginator.get_page(page), 'lvl': lvl}
+    context = {'entidad': e[0], 'elemento_entidad': url, 'lista': paginator.get_page(page), 'lvl': e[4]}
     return render(request, 'recetas/' + e[3], context)
 
 @login_required
