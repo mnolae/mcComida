@@ -10,6 +10,8 @@
 {% endblock %}
 
 {% block container %}
+<div class="card w-100">
+    <div class="card-block">
     {% if lista %}
         <table class="table table-sm table-hover table-responsive-sm text-capitalize">
             <thead>
@@ -69,4 +71,6 @@
             No hay ingredientes disponibles.
         </div>
     {% endif %}
+    </div>
+</div>
 {% endblock %}
