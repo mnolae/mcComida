@@ -31,10 +31,10 @@
                     <td class="text-right">
                     {% if user.is_authenticated %}
                         <span data-toggle="tooltip" data-placement="left" title="Editar elemento">
-                        <button role="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_edit' url=elemento_entidad cid=alimento.cid %}', 'Editar')"><i class="fa fa-pencil-square"></i></button>
+                        <button role="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Modal" onclick="urlModal('{% url 'elemento_edit' url=elemento_entidad cid=alimento.cid %}', 'Editar')"><i class="fa fa-pencil"></i></button>
                         </span>
                         <span data-toggle="tooltip" data-placement="left" title="Eliminar elemento">
-                        <button role="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Modal"  onclick="urlModal('{% url 'elemento_del' url=elemento_entidad cid=alimento.cid %}','Eliminar {{ e.tnombre }}')"><i class="fa fa-minus-square"></i></button>
+                        <button role="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#Modal"  onclick="urlModal('{% url 'elemento_del' url=elemento_entidad cid=alimento.cid %}','Eliminar {{ e.tnombre }}')"><i class="fa fa-minus"></i></button>
                         </span>
                     {% endif %}
                     </td>
