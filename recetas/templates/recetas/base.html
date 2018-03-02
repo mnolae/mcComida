@@ -9,6 +9,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'recetas/css/vendor.css' %}">
         <link rel="stylesheet" id="theme-style" href="{% static 'recetas/css/app.css' %}">
+        <link rel="stylesheet" href="{% static 'recetas/css/notify.min.css' %}">
+        <link rel="stylesheet" href="{% static 'recetas/css/base.css' %}">
     </head>
     <body>
         <div class="main-wrapper">
@@ -133,8 +135,14 @@
         <script src="{% static '/recetas/js/vendor.js' %}"></script>
         <script src="{% static '/recetas/js/app.js' %}"></script>
         <script src="{% static '/recetas/js/lib.js' %}"></script>
+        <script src="{% static '/recetas/js/jquery-notify.min.js' %}"></script>
         <script>
             $('[data-toggle="tooltip"]').tooltip();
+        {% if messages %}
+            {% for message in messages %}
+                $.notify.create("{{ message }}", { displayTime: 1500, sticky: false, appendTo: '.header', style: 'box', notifyClass: 'm-2 p-3', type: '{{ message.tags }}', closeText: '' });
+            {% endfor %}
+        {% endif %}
         </script>
         {% block js %}{% endblock %}
     </body>
