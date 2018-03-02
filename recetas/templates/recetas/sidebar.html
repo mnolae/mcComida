@@ -19,12 +19,18 @@
         </ul>
     </li>
     <li class="{% if lvl == 1 %}active open{% endif %}"">
+        <a href="{% url 'elementos' url='ingredientes' %}">
+            <i class="fa fa-leaf"></i>Ingredrientes
+        </a>
+    </li>
+    <li class="{% if lvl == 2 %}active open{% endif %}"">
         <a href="">
-            <i class="fa fa-cutlery"></i>Elementos lvl 1
+            <i class="fa fa-cutlery"></i>Recetas
             <i class="fa arrow"></i>
         </a>
         <ul class="sidebar-nav">
-            <li class="{% if request.path == '/e/ingredientes' %}active{% endif %}"><a href="{% url 'elementos' url='ingredientes' %}">Ingredientes</a></li>
+            <li class="{% if request.path == '/e/recetas-simples' %}active{% endif %}"><a href="{% url 'elementos' url='recetas-simples' %}">Simples</a></li>
+            <li class="{% if request.path == '/e/recetas-compuestas' %}active{% endif %}"><a href="{% url 'elementos' url='recetas-compuestas' %}">Compuestas</a></li>
         </ul>
     </li>
 </ul>

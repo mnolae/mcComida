@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Alimento, Sabor, Textura, Tecnica, \
                     TiposCorte, TipoIngrediente, CategoriaIngrediente, \
-                    IngredienteInfo
+                    IngredienteInfo, RecetasParciales, RecetasCompuestas
 
 # Function For Generic purpose
 def entidad(e):
@@ -20,7 +20,9 @@ def entidad(e):
         'tipos-corte': ['Tipos de Corte', 'TiposCorte', '', 'lista_generica.html', 0],
         'tipos-ingrediente': ['Tipos de Ingrediente', 'TipoIngrediente', '', 'lista_generica.html', 0],
         'categorias-ingrediente': ['Categorías de Ingrediente', 'CategoriaIngrediente', '', 'lista_generica.html', 0],
-        'ingredientes': ['Ingredientes', 'IngredienteInfo', '', 'lista_ingredientes.html', 1]
+        'ingredientes': ['Ingredientes', 'IngredienteInfo', '', 'lista_ingredientes.html', 1],
+        'recetas-simples': ['Recetas Simples', 'RecetasParciales', '', 'lista_generica.html', 2],
+        'recetas-compuestas': ['Recetas Compuestas', 'RecetasCompuestas', '', 'lista_generica.html', 2]
     }
 
     return ents.get(e, "null")
