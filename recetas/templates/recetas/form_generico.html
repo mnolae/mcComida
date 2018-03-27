@@ -1,15 +1,23 @@
 <form id="formGenerico" action="" method="post">
     {% csrf_token %}
     {% for field in form %}
-
     <div class="form-group">
+    {% if field.field.widget.input_type == 'checkbox' %}
+        <div>
+            <label>
+                {{ field }}
+                <span>{{ field.label_tag }}</span>
+            </label>
+        </div>
+
+    {% else %}
         {{ field.label_tag }}{% if field.field.required %} <span class="text-danger">*</span>{% endif %}
         {{ field }}
+    {% endif %}
     </div>
+
     {% endfor %}
 
     <small class="form-text text-muted mt-4"><span class="text-danger">*</span> Campo obligatorio</small>
     <input id="btnSubmit" type="submit" class="d-none" value="Aceptar" />
 </form>
-
-

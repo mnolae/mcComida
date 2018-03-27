@@ -1,4 +1,4 @@
-from django.forms import modelform_factory, TextInput, Select
+from django.forms import modelform_factory, TextInput, Select, CheckboxInput, Textarea
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -11,18 +11,19 @@ from .models import Alimento, Sabor, Textura, Tecnica, \
                     IngredienteInfo, RecetasParciales, RecetasCompuestas
 
 # Function For Generic purpose
+# [Nombre entidad, entidad, template, menú level, modal size]
 def entidad(e):
     ents = {
-        'alimentos': ['Alimentos', 'Alimento', '', 'lista_alimentos.html', 0],
-        'sabores': ['Sabores', 'Sabor', '', 'lista_generica.html', 0],
-        'texturas': ['Texturas', 'Textura', '', 'lista_generica.html', 0],
-        'tecnicas': ['Técnicas', 'Tecnica', '', 'lista_generica.html', 0],
-        'tipos-corte': ['Tipos de Corte', 'TiposCorte', '', 'lista_generica.html', 0],
-        'tipos-ingrediente': ['Tipos de Ingrediente', 'TipoIngrediente', '', 'lista_generica.html', 0],
-        'categorias-ingrediente': ['Categorías de Ingrediente', 'CategoriaIngrediente', '', 'lista_generica.html', 0],
-        'ingredientes': ['Ingredientes', 'IngredienteInfo', '', 'lista_ingredientes.html', 1],
-        'recetas-simples': ['Recetas Simples', 'RecetasParciales', '', 'lista_generica.html', 2],
-        'recetas-compuestas': ['Recetas Compuestas', 'RecetasCompuestas', '', 'lista_generica.html', 2]
+        'alimentos': ['Alimentos', 'Alimento', 'lista_alimentos.html', 0, False],
+        'sabores': ['Sabores', 'Sabor', 'lista_generica.html', 0, False],
+        'texturas': ['Texturas', 'Textura', 'lista_generica.html', 0, False],
+        'tecnicas': ['Técnicas', 'Tecnica', 'lista_generica.html', 0, False],
+        'tipos-corte': ['Tipos de Corte', 'TiposCorte', 'lista_generica.html', 0, False],
+        'tipos-ingrediente': ['Tipos de Ingrediente', 'TipoIngrediente', 'lista_generica.html', 0, False],
+        'categorias-ingrediente': ['Categorías de Ingrediente', 'CategoriaIngrediente', 'lista_generica.html', 0, False],
+        'ingredientes': ['Ingredientes', 'IngredienteInfo', 'lista_ingredientes.html', 1, False],
+        'recetas-simples': ['Recetas Simples', 'RecetasParciales', 'lista_generica.html', 2, True],
+        'recetas-compuestas': ['Recetas Compuestas', 'RecetasCompuestas', 'lista_generica.html', 2, True]
     }
 
     return ents.get(e, "null")
@@ -37,8 +38,8 @@ def elementos(request, url):
     paginator = Paginator(lista, 10)
     page = request.GET.get('page')
 
-    context = {'entidad': e[0], 'elemento_entidad': url, 'lista': paginator.get_page(page), 'lvl': e[4]}
-    return render(request, 'recetas/' + e[3], context)
+    context = {'entidad': e[0], 'elemento_entidad': url, 'lista': paginator.get_page(page), 'lvl': e[3], 'modal_lg': e[4]}
+    return render(request, 'recetas/' + e[2], context)
 
 @login_required
 def elemento_nuevo(request, url):
@@ -65,17 +66,21 @@ def elemento_nuevo(request, url):
                                     'ctecnica': 'Técnica',
                                     'ctipo': 'Tipo',
                                     'ccategoria': 'Categoría',
-                                    'ccorte': 'Corte'
+                                    'ccorte': 'Corte',
+                                    'lacomp': 'Acompañamiento',
+                                    'tdetalle': 'Detalle',
                                     },
                                 widgets = {
-                                    'tnombre': TextInput(attrs={'class': 'form-control'}),
-                                    'csabor': Select(attrs={'class': 'form-control'}),
-                                    'ctextura': Select(attrs={'class': 'form-control'}),
-                                    'calimento': Select(attrs={'class': 'form-control'}),
-                                    'ctecnica': Select(attrs={'class': 'form-control'}),
-                                    'ctipo': Select(attrs={'class': 'form-control'}),
+                                    'tnombre': TextInput(attrs={'class': 'form-control boxed'}),
+                                    'csabor': Select(attrs={'class': 'form-control boxed'}),
+                                    'ctextura': Select(attrs={'class': 'form-control boxed'}),
+                                    'calimento': Select(attrs={'class': 'form-control boxed'}),
+                                    'ctecnica': Select(attrs={'class': 'form-control boxed'}),
+                                    'ctipo': Select(attrs={'class': 'form-control boxed'}),
                                     'ccategoria': Select(attrs={'class': 'form-control'}),
-                                    'ccorte': Select(attrs={'class': 'form-control'}),
+                                    'ccorte': Select(attrs={'class': 'form-control boxed'}),
+                                    'lacomp': CheckboxInput(attrs={'class': 'checkbox'}),
+                                    'tdetalle': Textarea(attrs={'class': 'form-control boxed'}),
                                     })(label_suffix="")
             
     return render(request, 'recetas/form_generico.html', {'form': form})

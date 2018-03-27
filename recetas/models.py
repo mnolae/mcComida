@@ -77,9 +77,9 @@ class RecetasParciales(models.Model):
     cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
     tnombre = models.CharField(db_column='tNombre', max_length=45)  # Field name made lowercase.
     tdetalle = models.TextField(db_column='tDetalle', blank=True, null=True)  # Field name made lowercase.
-    lacomp = models.IntegerField(db_column='lAcomp', blank=True, null=True)  # Field name made lowercase.
     csabor = models.ForeignKey('Sabor', models.DO_NOTHING, db_column='cSabor', blank=True, null=True)  # Field name made lowercase.
     ctextura = models.ForeignKey('Textura', models.DO_NOTHING, db_column='cTextura', blank=True, null=True)  # Field name made lowercase.
+    lacomp = models.IntegerField(db_column='lAcomp', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
