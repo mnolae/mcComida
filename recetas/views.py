@@ -111,17 +111,21 @@ def elemento_edit(request, url, cid):
                                     'ctecnica': 'Técnica',
                                     'ctipo': 'Tipo',
                                     'ccategoria': 'Categoría',
-                                    'ccorte': 'Corte'
+                                    'ccorte': 'Corte',
+                                    'lacomp': 'Acompañamiento',
+                                    'tdetalle': 'Detalle',
                                     },
                                 widgets = {
-                                    'tnombre': TextInput(attrs={'class': 'form-control'}),
-                                    'csabor': Select(attrs={'class': 'form-control'}),
-                                    'ctextura': Select(attrs={'class': 'form-control'}),
-                                    'calimento': Select(attrs={'class': 'form-control'}),
-                                    'ctecnica': Select(attrs={'class': 'form-control'}),
-                                    'ctipo': Select(attrs={'class': 'form-control'}),
-                                    'ccategoria': Select(attrs={'class': 'form-control'}),
-                                    'ccorte': Select(attrs={'class': 'form-control'}),
+                                    'tnombre': TextInput(attrs={'class': 'form-control boxed'}),
+                                    'csabor': Select(attrs={'class': 'form-control boxed'}),
+                                    'ctextura': Select(attrs={'class': 'form-control boxed'}),
+                                    'calimento': Select(attrs={'class': 'form-control boxed'}),
+                                    'ctecnica': Select(attrs={'class': 'form-control boxed'}),
+                                    'ctipo': Select(attrs={'class': 'form-control boxed'}),
+                                    'ccategoria': Select(attrs={'class': 'form-control boxed'}),
+                                    'ccorte': Select(attrs={'class': 'form-control boxed'}),
+                                    'lacomp': CheckboxInput(attrs={'class': 'checkbox'}),
+                                    'tdetalle': Textarea(attrs={'class': 'form-control boxed'}),
                                     })
 
         form = modelform(request.POST or None, instance = instance, label_suffix = "")
