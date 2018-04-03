@@ -63,19 +63,6 @@ class IngredienteInfo(models.Model):
         ingrediente = (self.calimento, self.ctecnica, self.ccorte, self.ctipo, self.ccategoria)
         return ' '.join(str(part) for part in ingrediente if part is not None)
 
-
-class RecetasCompuestas(models.Model):
-    cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
-    tnombre = models.CharField(db_column='tNombre', max_length=45)  # Field name made lowercase.
-    tdetalle = models.TextField(db_column='tDetalle', blank=True, null=True)  # Field name made lowercase.
-    csabor = models.ForeignKey('Sabor', models.DO_NOTHING, db_column='cSabor', blank=True, null=True)  # Field name made lowercase.
-    ctextura = models.ForeignKey('Textura', models.DO_NOTHING, db_column='cTextura', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'RECETAS_COMPUESTAS'
-
-
 class RecetasParciales(models.Model):
     cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
     tnombre = models.CharField(db_column='tNombre', max_length=45)  # Field name made lowercase.
@@ -89,11 +76,25 @@ class RecetasParciales(models.Model):
         managed = False
         db_table = 'RECETAS_PARCIALES'
 
+    def __str__(self):
+        return self.tnombre
+
+class RecetasCompuestas(models.Model):
+    cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
+    tnombre = models.CharField(db_column='tNombre', max_length=45)  # Field name made lowercase.
+    tdetalle = models.TextField(db_column='tDetalle', blank=True, null=True)  # Field name made lowercase.
+    csabor = models.ForeignKey('Sabor', models.DO_NOTHING, db_column='cSabor', blank=True, null=True)  # Field name made lowercase.
+    ctextura = models.ForeignKey('Textura', models.DO_NOTHING, db_column='cTextura', blank=True, null=True)  # Field name made lowercase.
+    crecetasparciales = models.ManyToManyField(RecetasParciales, through='RparcialesRcompuestas', blank=True)
+
+    class Meta:
+        managed = False
+        db_table = 'RECETAS_COMPUESTAS'
 
 class RparcialesRcompuestas(models.Model):
-    cid = models.IntegerField(db_column='cId', primary_key=True)  # Field name made lowercase.
-    crecetaparcial = models.ForeignKey(RecetasParciales, models.DO_NOTHING, db_column='cRecetaParcial')  # Field name made lowercase.
-    crecetacompuesta = models.ForeignKey(RecetasCompuestas, models.DO_NOTHING, db_column='cRecetaCompuesta')  # Field name made lowercase.
+    cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
+    crecetaparcial = models.ForeignKey(RecetasParciales, models.CASCADE, db_column='cRecetaParcial')  # Field name made lowercase.
+    crecetacompuesta = models.ForeignKey(RecetasCompuestas, models.CASCADE, db_column='cRecetaCompuesta')  # Field name made lowercase.
 
     class Meta:
         managed = False

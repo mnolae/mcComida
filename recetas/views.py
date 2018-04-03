@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Alimento, Sabor, Textura, Tecnica, \
                     TiposCorte, TipoIngrediente, CategoriaIngrediente, \
                     IngredienteInfo, RecetasParciales, RecetasCompuestas, \
-                    IngredientesRecetas
+                    IngredientesRecetas, RparcialesRcompuestas
 # Function For Generic purpose
 # [Nombre entidad, entidad, template, menú level, modal size]
 def entidad(e):
@@ -56,7 +56,17 @@ def elemento_nuevo(request, url):
                     ingrediente = IngredienteInfo.objects.get(cid = ing)
                     recings = IngredientesRecetas(crecetaparcial = receta, cingredienteinfo = ingrediente)
                     recings.save()
-                
+            if e[1] == 'RecetasCompuestas':
+                receta = RecetasCompuestas.objects.create(
+                                                            tnombre = form.cleaned_data['tnombre'],
+                                                            tdetalle = form.cleaned_data['tdetalle'],
+                                                            csabor = form.cleaned_data['csabor'],
+                                                            ctextura = form.cleaned_data['ctextura'],
+                                                        )
+                for rs in request.POST.getlist('crecetasparciales'):
+                    recetaparcial = RecetasParciales.objects.get(cid = rs)
+                    reccomp = RparcialesRcompuestas(crecetacompuesta = receta, crecetaparcial = recetaparcial)
+                    reccomp.save()                
             else:          
                 form.save()
 
@@ -78,6 +88,7 @@ def elemento_nuevo(request, url):
                                     'lacomp': 'Acompañamiento',
                                     'tdetalle': 'Detalle',
                                     'cingrediente': 'Ingredientes',
+                                    'crecetasparciales': 'Recetas Simples'
                                     },
                                 widgets = {
                                     'tnombre': TextInput(attrs={'class': 'form-control boxed'}),
@@ -89,8 +100,9 @@ def elemento_nuevo(request, url):
                                     'ccategoria': Select(attrs={'class': 'form-control'}),
                                     'ccorte': Select(attrs={'class': 'form-control boxed'}),
                                     'lacomp': CheckboxInput(attrs={'class': 'checkbox'}),
-                                    'tdetalle': Textarea(attrs={'class': 'form-control boxed'}),
+                                    'tdetalle': Textarea(attrs={'class': 'form-control wysiwyg boxed'}),
                                     'cingrediente': SelectMultiple(attrs={'class': 'form-control boxed'}),
+                                    'crecetasparciales': SelectMultiple(attrs={'class': 'form-control boxed'}),
                                     })(label_suffix="")
             
     return render(request, 'recetas/form_generico.html', {'form': form})

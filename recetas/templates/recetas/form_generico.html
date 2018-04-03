@@ -9,7 +9,6 @@
                 <span>{{ field.label_tag }}</span>
             </label>
         </div>
-
     {% else %}
         {{ field.label_tag }}{% if field.field.required %} <span class="text-danger">*</span>{% endif %}
         {{ field }}
