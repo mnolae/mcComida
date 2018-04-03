@@ -37,8 +37,10 @@ class Alimento(models.Model):
 
 class IngredientesRecetas(models.Model):
     cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
-    cingredienteinfo = models.ForeignKey('IngredienteInfo', models.DO_NOTHING, db_column='cIngredienteInfo')  # Field name made lowercase.
-    crecetaparcial = models.ForeignKey('RecetasParciales', models.DO_NOTHING, db_column='cRecetaParcial')  # Field name made lowercase.
+    cingredienteinfo = models.ForeignKey('IngredienteInfo', models.CASCADE, db_column='cIngredienteInfo')  # Field name made lowercase.
+    crecetaparcial = models.ForeignKey('RecetasParciales', models.CASCADE, db_column='cRecetaParcial')  # Field name made lowercase.
+    #cingredienteinfo = models.ManyToManyField('IngredienteInfo')
+    #crecetaparcial = models.ManyToManyField('RecetasParciales')
 
     class Meta:
         managed = False
@@ -49,16 +51,17 @@ class IngredienteInfo(models.Model):
     cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
     calimento = models.ForeignKey(Alimento, models.DO_NOTHING, db_column='cAlimento')  # Field name made lowercase.
     ctecnica = models.ForeignKey('Tecnica', models.DO_NOTHING, db_column='cTecnica')  # Field name made lowercase.
+    ccorte = models.ForeignKey('TiposCorte', models.DO_NOTHING, db_column='cCorte')  # Field name made lowercase.
     ctipo = models.ForeignKey('TipoIngrediente', models.DO_NOTHING, db_column='cTipo')  # Field name made lowercase.
     ccategoria = models.ForeignKey(CategoriaIngrediente, models.DO_NOTHING, db_column='cCategoria')  # Field name made lowercase.
-    ccorte = models.ForeignKey('TiposCorte', models.DO_NOTHING, db_column='cCorte')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'INGREDIENTE_INFO'
 
     def __str__(self):
-        return self.calimento
+        ingrediente = (self.calimento, self.ctecnica, self.ccorte, self.ctipo, self.ccategoria)
+        return ' '.join(str(part) for part in ingrediente if part is not None)
 
 
 class RecetasCompuestas(models.Model):
@@ -79,6 +82,7 @@ class RecetasParciales(models.Model):
     tdetalle = models.TextField(db_column='tDetalle', blank=True, null=True)  # Field name made lowercase.
     csabor = models.ForeignKey('Sabor', models.DO_NOTHING, db_column='cSabor', blank=True, null=True)  # Field name made lowercase.
     ctextura = models.ForeignKey('Textura', models.DO_NOTHING, db_column='cTextura', blank=True, null=True)  # Field name made lowercase.
+    cingrediente = models.ManyToManyField(IngredienteInfo, through='IngredientesRecetas', blank=True)
     lacomp = models.IntegerField(db_column='lAcomp', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:

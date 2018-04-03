@@ -1,15 +1,15 @@
-from django.forms import modelform_factory, TextInput, Select, CheckboxInput, Textarea
+from django.forms import modelform_factory, TextInput, Select, CheckboxInput, Textarea, SelectMultiple
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from .models import Alimento, Sabor, Textura, Tecnica, \
                     TiposCorte, TipoIngrediente, CategoriaIngrediente, \
-                    IngredienteInfo, RecetasParciales, RecetasCompuestas
-
+                    IngredienteInfo, RecetasParciales, RecetasCompuestas, \
+                    IngredientesRecetas
 # Function For Generic purpose
 # [Nombre entidad, entidad, template, menú level, modal size]
 def entidad(e):
@@ -47,11 +47,19 @@ def elemento_nuevo(request, url):
 
     if request.method == 'POST':
         modelform = modelform_factory(eval(e[1]), fields = '__all__')
-
         form = modelform(request.POST)
 
         if form.is_valid():
-            form.save()
+            if e[1] == 'RecetasParciales':
+                receta = RecetasParciales.objects.create(tnombre = form.cleaned_data['tnombre'])
+                for ing in request.POST.getlist('cingrediente'):
+                    ingrediente = IngredienteInfo.objects.get(cid = ing)
+                    recings = IngredientesRecetas(crecetaparcial = receta, cingredienteinfo = ingrediente)
+                    recings.save()
+                
+            else:          
+                form.save()
+
             messages.add_message(request, messages.SUCCESS, "Elemento registrado.")
             return HttpResponseRedirect("/e/" + url)
 
@@ -69,6 +77,7 @@ def elemento_nuevo(request, url):
                                     'ccorte': 'Corte',
                                     'lacomp': 'Acompañamiento',
                                     'tdetalle': 'Detalle',
+                                    'cingrediente': 'Ingredientes',
                                     },
                                 widgets = {
                                     'tnombre': TextInput(attrs={'class': 'form-control boxed'}),
@@ -81,6 +90,7 @@ def elemento_nuevo(request, url):
                                     'ccorte': Select(attrs={'class': 'form-control boxed'}),
                                     'lacomp': CheckboxInput(attrs={'class': 'checkbox'}),
                                     'tdetalle': Textarea(attrs={'class': 'form-control boxed'}),
+                                    'cingrediente': SelectMultiple(attrs={'class': 'form-control boxed'}),
                                     })(label_suffix="")
             
     return render(request, 'recetas/form_generico.html', {'form': form})
@@ -95,7 +105,17 @@ def elemento_edit(request, url, cid):
         form = modelform(request.POST or None, instance = instance)
 
         if form.is_valid():
-            form.save()
+            if e[1] == 'RecetasParciales':
+                receta = RecetasParciales.objects.get(tnombre = form.cleaned_data['tnombre'])
+                receta.cingrediente.clear()
+                for ing in request.POST.getlist('cingrediente'):
+                    ingrediente = IngredienteInfo.objects.get(cid = ing)
+                    recings = IngredientesRecetas(crecetaparcial = receta, cingredienteinfo = ingrediente)
+                    recings.save()
+                
+            else:          
+                form.save()
+
             messages.add_message(request, messages.SUCCESS, "Elemento actualizado.")
             return HttpResponseRedirect("/e/" + url)
 
@@ -114,6 +134,7 @@ def elemento_edit(request, url, cid):
                                     'ccorte': 'Corte',
                                     'lacomp': 'Acompañamiento',
                                     'tdetalle': 'Detalle',
+                                    'cingrediente': 'Ingredientes',
                                     },
                                 widgets = {
                                     'tnombre': TextInput(attrs={'class': 'form-control boxed'}),
@@ -126,6 +147,7 @@ def elemento_edit(request, url, cid):
                                     'ccorte': Select(attrs={'class': 'form-control boxed'}),
                                     'lacomp': CheckboxInput(attrs={'class': 'checkbox'}),
                                     'tdetalle': Textarea(attrs={'class': 'form-control boxed'}),
+                                    'cingrediente': SelectMultiple(attrs={'class': 'form-control boxed'}),
                                     })
 
         form = modelform(request.POST or None, instance = instance, label_suffix = "")
