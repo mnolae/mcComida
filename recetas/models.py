@@ -68,7 +68,7 @@ class RecetasParciales(models.Model):
     csabor = models.ForeignKey('Sabor', models.DO_NOTHING, db_column='cSabor', blank=True, null=True)  # Field name made lowercase.
     ctextura = models.ForeignKey('Textura', models.DO_NOTHING, db_column='cTextura', blank=True, null=True)  # Field name made lowercase.
     cingrediente = models.ManyToManyField(IngredienteInfo, through='IngredientesRecetas', blank=True)
-    lacomp = models.IntegerField(db_column='lAcomp', blank=True, null=True)  # Field name made lowercase.
+    lacomp = models.BooleanField(db_column='lAcomp', blank=True)  # Field name made lowercase.
 
     class Meta:
         managed = False

@@ -107,7 +107,7 @@ def elemento_nuevo(request, url):
                                     'ctipo': Select(attrs={'class': 'form-control boxed'}),
                                     'ccategoria': Select(attrs={'class': 'form-control'}),
                                     'ccorte': Select(attrs={'class': 'form-control boxed'}),
-                                    'lacomp': CheckboxInput(),
+                                    'lacomp': CheckboxInput(attrs={'class': 'checkbox'}),
                                     'tdetalle': Textarea(attrs={'class': 'form-control wysiwyg boxed'}),
                                     'cingrediente': SelectMultiple(attrs={'class': 'form-control boxed'}),
                                     'crecetasparciales': SelectMultiple(attrs={'class': 'form-control boxed'}),
@@ -165,7 +165,7 @@ def elemento_edit(request, url, cid):
                                     'ctipo': Select(attrs={'class': 'form-control boxed'}),
                                     'ccategoria': Select(attrs={'class': 'form-control boxed'}),
                                     'ccorte': Select(attrs={'class': 'form-control boxed'}),
-                                    'lacomp': CheckboxInput(),
+                                    'lacomp': CheckboxInput(attrs={'class': 'checkbox'}),
                                     'tdetalle': Textarea(attrs={'class': 'form-control boxed'}),
                                     'cingrediente': SelectMultiple(attrs={'class': 'form-control boxed'}),
                                     })
