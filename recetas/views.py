@@ -51,12 +51,19 @@ def elemento_nuevo(request, url):
 
         if form.is_valid():
             if e[1] == 'RecetasParciales':
-                receta = RecetasParciales.objects.create(tnombre = form.cleaned_data['tnombre'])
+                receta = RecetasParciales.objects.create(
+                                                            tnombre = form.cleaned_data['tnombre'],
+                                                            tdetalle = form.cleaned_data['tdetalle'],
+                                                            csabor = form.cleaned_data['csabor'],
+                                                            ctextura = form.cleaned_data['ctextura'],
+                                                            lacomp = form.cleaned_data['lacomp']
+                                                        )
                 for ing in request.POST.getlist('cingrediente'):
                     ingrediente = IngredienteInfo.objects.get(cid = ing)
                     recings = IngredientesRecetas(crecetaparcial = receta, cingredienteinfo = ingrediente)
                     recings.save()
-            if e[1] == 'RecetasCompuestas':
+
+            elif e[1] == 'RecetasCompuestas':
                 receta = RecetasCompuestas.objects.create(
                                                             tnombre = form.cleaned_data['tnombre'],
                                                             tdetalle = form.cleaned_data['tdetalle'],
@@ -66,7 +73,8 @@ def elemento_nuevo(request, url):
                 for rs in request.POST.getlist('crecetasparciales'):
                     recetaparcial = RecetasParciales.objects.get(cid = rs)
                     reccomp = RparcialesRcompuestas(crecetacompuesta = receta, crecetaparcial = recetaparcial)
-                    reccomp.save()                
+                    reccomp.save() 
+               
             else:          
                 form.save()
 
@@ -99,7 +107,7 @@ def elemento_nuevo(request, url):
                                     'ctipo': Select(attrs={'class': 'form-control boxed'}),
                                     'ccategoria': Select(attrs={'class': 'form-control'}),
                                     'ccorte': Select(attrs={'class': 'form-control boxed'}),
-                                    'lacomp': CheckboxInput(attrs={'class': 'checkbox'}),
+                                    'lacomp': CheckboxInput(),
                                     'tdetalle': Textarea(attrs={'class': 'form-control wysiwyg boxed'}),
                                     'cingrediente': SelectMultiple(attrs={'class': 'form-control boxed'}),
                                     'crecetasparciales': SelectMultiple(attrs={'class': 'form-control boxed'}),
@@ -157,7 +165,7 @@ def elemento_edit(request, url, cid):
                                     'ctipo': Select(attrs={'class': 'form-control boxed'}),
                                     'ccategoria': Select(attrs={'class': 'form-control boxed'}),
                                     'ccorte': Select(attrs={'class': 'form-control boxed'}),
-                                    'lacomp': CheckboxInput(attrs={'class': 'checkbox'}),
+                                    'lacomp': CheckboxInput(),
                                     'tdetalle': Textarea(attrs={'class': 'form-control boxed'}),
                                     'cingrediente': SelectMultiple(attrs={'class': 'form-control boxed'}),
                                     })

@@ -39,8 +39,6 @@ class IngredientesRecetas(models.Model):
     cid = models.AutoField(db_column='cId', primary_key=True)  # Field name made lowercase.
     cingredienteinfo = models.ForeignKey('IngredienteInfo', models.CASCADE, db_column='cIngredienteInfo')  # Field name made lowercase.
     crecetaparcial = models.ForeignKey('RecetasParciales', models.CASCADE, db_column='cRecetaParcial')  # Field name made lowercase.
-    #cingredienteinfo = models.ManyToManyField('IngredienteInfo')
-    #crecetaparcial = models.ManyToManyField('RecetasParciales')
 
     class Meta:
         managed = False
