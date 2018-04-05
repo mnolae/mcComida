@@ -11,13 +11,19 @@ function urlModal(url, titulo){
 //        $('#btnAceptar').toggleClass('btn-danger');
         $('#modalContenido').html('Se eliminará el elemento seleccionado de la base de datos.');
         $('#btnAceptar').attr('onclick', "window.location = '" + url + "'");
-    } else {
+    } else if (titulo.indexOf("Editar") == 0){ 
         $.ajax({
             url: url, 
             success: function(result){
                 $('#modalContenido').html(result);
                 $('#formGenerico').attr('action', url);
                 $('#btnAceptar').attr('onclick', "$('#btnSubmit').click()");
+            }});
+    } else {
+        $.ajax({
+            url: url, 
+            success: function(result){
+                $('#modalContenido').html(result);
             }});
     }
 
