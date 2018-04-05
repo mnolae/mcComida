@@ -50,33 +50,20 @@ def elemento_nuevo(request, url):
         form = modelform(request.POST)
 
         if form.is_valid():
+            sform = form.save(commit = False)
+            sform.save()
+    
             if e[1] == 'RecetasParciales':
-                receta = RecetasParciales.objects.create(
-                                                            tnombre = form.cleaned_data['tnombre'],
-                                                            tdetalle = form.cleaned_data['tdetalle'],
-                                                            csabor = form.cleaned_data['csabor'],
-                                                            ctextura = form.cleaned_data['ctextura'],
-                                                            lacomp = form.cleaned_data['lacomp']
-                                                        )
                 for ing in request.POST.getlist('cingrediente'):
                     ingrediente = IngredienteInfo.objects.get(cid = ing)
-                    recings = IngredientesRecetas(crecetaparcial = receta, cingredienteinfo = ingrediente)
-                    recings.save()
+                    IngredientesRecetas.objects.create(crecetaparcial = sform, cingredienteinfo = ingrediente)
+
 
             elif e[1] == 'RecetasCompuestas':
-                receta = RecetasCompuestas.objects.create(
-                                                            tnombre = form.cleaned_data['tnombre'],
-                                                            tdetalle = form.cleaned_data['tdetalle'],
-                                                            csabor = form.cleaned_data['csabor'],
-                                                            ctextura = form.cleaned_data['ctextura'],
-                                                        )
                 for rs in request.POST.getlist('crecetasparciales'):
                     recetaparcial = RecetasParciales.objects.get(cid = rs)
-                    reccomp = RparcialesRcompuestas(crecetacompuesta = receta, crecetaparcial = recetaparcial)
-                    reccomp.save() 
-               
-            else:          
-                form.save()
+                    RparcialesRcompuestas.objects.create(crecetacompuesta = sform, crecetaparcial = recetaparcial)
+
 
             messages.add_message(request, messages.SUCCESS, "Elemento registrado.")
             return HttpResponseRedirect("/e/" + url)
@@ -125,16 +112,20 @@ def elemento_edit(request, url, cid):
         form = modelform(request.POST or None, instance = instance)
 
         if form.is_valid():
+            sform = form.save(commit = False)
+            sform.save()
+
             if e[1] == 'RecetasParciales':
-                receta = RecetasParciales.objects.get(tnombre = form.cleaned_data['tnombre'])
-                receta.cingrediente.clear()
+                sform.cingrediente.clear()
                 for ing in request.POST.getlist('cingrediente'):
                     ingrediente = IngredienteInfo.objects.get(cid = ing)
-                    recings = IngredientesRecetas(crecetaparcial = receta, cingredienteinfo = ingrediente)
-                    recings.save()
-                
-            else:          
-                form.save()
+                    IngredientesRecetas.objects.create(crecetaparcial = sform, cingredienteinfo = ingrediente)
+
+            elif e[1] == 'RecetasCompuestas':
+                sform.crecetasparciales.clear()
+                for rs in request.POST.getlist('crecetasparciales'):
+                    recetaparcial = RecetasParciales.objects.get(cid = rs)
+                    RparcialesRcompuestas.objects.create(crecetacompuesta = sform, crecetaparcial = recetaparcial)
 
             messages.add_message(request, messages.SUCCESS, "Elemento actualizado.")
             return HttpResponseRedirect("/e/" + url)
@@ -155,6 +146,7 @@ def elemento_edit(request, url, cid):
                                     'lacomp': 'Acompañamiento',
                                     'tdetalle': 'Detalle',
                                     'cingrediente': 'Ingredientes',
+                                    'crecetasparciales': 'Recetas Simples'
                                     },
                                 widgets = {
                                     'tnombre': TextInput(attrs={'class': 'form-control boxed'}),
@@ -168,6 +160,7 @@ def elemento_edit(request, url, cid):
                                     'lacomp': CheckboxInput(attrs={'class': 'checkbox'}),
                                     'tdetalle': Textarea(attrs={'class': 'form-control boxed'}),
                                     'cingrediente': SelectMultiple(attrs={'class': 'form-control boxed'}),
+                                    'crecetasparciales': SelectMultiple(attrs={'class': 'form-control boxed'}),
                                     })
 
         form = modelform(request.POST or None, instance = instance, label_suffix = "")
