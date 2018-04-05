@@ -23,7 +23,7 @@ def entidad(e):
         'tipos-ingrediente': ['Tipos de Ingrediente', 'TipoIngrediente', 'lista_generica.html', 0, False],
         'categorias-ingrediente': ['Categorías de Ingrediente', 'CategoriaIngrediente', 'lista_generica.html', 0, False],
         'ingredientes': ['Ingredientes', 'IngredienteInfo', 'lista_ingredientes.html', 1, False],
-        'recetas-simples': ['Recetas Simples', 'RecetasParciales', 'lista_recetasimple.html', 2, True],
+        'recetas-simples': ['Recetas Simples', 'RecetasParciales', 'lista_generica.html', 2, True],
         'recetas-compuestas': ['Recetas Compuestas', 'RecetasCompuestas', 'lista_generica.html', 2, True]
     }
 
@@ -179,6 +179,10 @@ def elemento_del(request, url, cid):
 def recetasimple_show(request, cid):
     receta = get_object_or_404(RecetasParciales, cid = cid)
     return render(request, 'recetas/ver_recetasimple.html', {'receta': receta})
+
+def recetacompuesta_show(request, cid):
+    receta = get_object_or_404(RecetasCompuestas, cid = cid)
+    return render(request, 'recetas/ver_recetacompuesta.html', {'receta': receta})
 
 
 

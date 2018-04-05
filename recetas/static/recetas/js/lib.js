@@ -10,7 +10,7 @@ function urlModal(url, titulo){
         $('#modalContenido').html('Se eliminará el elemento seleccionado de la base de datos.');
         $('#btnAceptar').attr('onclick', "window.location = '" + url + "'");
 
-    } else if (titulo.indexOf("Editar") == 0){ 
+    } else if (titulo.indexOf("Editar") == 0 || titulo.indexOf("Nuevo") == 0){ 
         $.ajax({
             url: url, 
             success: function(result){
@@ -20,6 +20,7 @@ function urlModal(url, titulo){
             }});
 
     } else {
+        console.log('llega')
         $.ajax({
             url: url, 
             success: function(result){
