@@ -1,4 +1,14 @@
+<h6 class="bg-light p-2 text-right text-xs-center">
+    {% if receta.csabor %}<span class="badge badge-info">{{ receta.csabor.tnombre }}</span>{% endif %}
+    {% if receta.ctextura %}<span class="badge badge-success">{{ receta.ctextura.tnombre }}</span>{% endif %}
+    {% if receta.lacomp %}<span class="badge badge-warning">Acompañamiento</span>{% endif %}
+</h6>
+
+<ul>
+{% for ing in receta.cingrediente.all %}
+    <li>{{ ing }}</li>
+{% endfor %}
+</ul>
+<hr />
 {{ receta.tdetalle }}
-{{ receta.csabor.tnombre }}
-{{ receta.ctextura.tnombre }}
-{{ receta.cingrediente.calimento.tnombre }}
+
