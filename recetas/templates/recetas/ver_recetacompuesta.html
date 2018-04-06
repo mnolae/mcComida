@@ -3,11 +3,34 @@
     {% if receta.ctextura %}<span class="badge badge-success">{{ receta.ctextura.tnombre }}</span>{% endif %}
 </h6>
 
-<ul>
+    <div class="px-1">
 {% for rec in receta.crecetasparciales.all %}
-    <li>{{ rec }}</li>
+    <button class="btn btn-secondary btn-block text-left dropdown-toggle" type="button" data-toggle="collapse" data-target="#collapse{{ rec.cid }}" aria-expanded="false" aria-controls="collapse{{ rec.cid }}">
+        {{ rec }}
+    </button>
+    <div id="collapse{{ rec.cid }}" class="collapse border-bottom border-primary mb-2" aria-labelledby="heading{{ rec.cid }}" data-parent="#accordion">
+        <h6 class="bg-light p-2 text-right text-xs-center">
+            {% if rec.csabor %}<span class="badge badge-info">{{ rec.csabor.tnombre }}</span>{% endif %}
+            {% if rec.ctextura %}<span class="badge badge-success">{{ rec.ctextura.tnombre }}</span>{% endif %}
+            {% if rec.lacomp %}<span class="badge badge-warning">Acompañamiento</span>{% endif %}
+        </h6>
+
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <small><ul class="pl-4">
+                {% for ing in rec.cingrediente.all %}
+                    <li>{{ ing }}</li>
+                {% endfor %}
+                </ul></small>
+            </div>
+            <div class="col-12 col-md-8">
+                {{ rec.tdetalle}}
+            </div>
+        </div>
+    </div>
 {% endfor %}
-</ul>
+    </div>
+
 <hr />
 {{ receta.tdetalle }}
 
